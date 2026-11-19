@@ -1,7 +1,7 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, shared, ... }:
 
 let
-  zsh = ../../shared/zsh;
+  zsh = "${shared}/zsh";
 in
 {
   programs.zsh = {

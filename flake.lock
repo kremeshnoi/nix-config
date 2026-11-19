@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795111829,
+        "narHash": "sha256-vxUYg7QtIK0JxzlEnZRsEhz1dJu+CwTxB+TDC9rCaMA=",
+        "owner": "kremeshnoi",
+        "repo": "dotfiles",
+        "rev": "d1214bd38f72f775d45ac197bfb3c70a198ed122",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kremeshnoi",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -118,6 +134,7 @@
     },
     "root": {
       "inputs": {
+        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",

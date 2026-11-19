@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, shared, ... }:
 
 let
-  herdr = pkgs.callPackage ../pkgs/herdr.nix { };
+  herdr = pkgs.callPackage ../pkgs/herdr.nix { inherit shared; };
 in
 {
   nixpkgs.hostPlatform = "aarch64-darwin";

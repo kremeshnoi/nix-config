@@ -1,6 +1,5 @@
 {
   inputs = {
-    self.submodules = true;
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/release-26.05";
@@ -18,17 +17,23 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dotfiles = {
+      url = "github:kremeshnoi/dotfiles";
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, nixos-wsl, nix-darwin, home-manager, nix-index-database, ... }:
+  outputs = { nixpkgs, nixos-wsl, nix-darwin, home-manager, nix-index-database, dotfiles, ... }:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+    shared = "${dotfiles}/shared";
     homeManager = platform: {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
         backupFileExtension = "hm-backup";
+        extraSpecialArgs = { inherit shared; };
         users.kremeshnoi.imports = [ ./home platform ];
       };
     };
@@ -41,6 +46,7 @@
     };
 
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit shared; };
       modules = [
         nixos-wsl.nixosModules.default
         nix-index-database.nixosModules.nix-index
@@ -51,6 +57,7 @@
     };
 
     darwinConfigurations.mac = nix-darwin.lib.darwinSystem {
+      specialArgs = { inherit shared; };
       modules = [
         nix-index-database.darwinModules.nix-index
         home-manager.darwinModules.home-manager

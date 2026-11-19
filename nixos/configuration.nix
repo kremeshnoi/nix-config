@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, shared, ... }:
 
 let
-  herdr = pkgs.callPackage ../pkgs/herdr.nix { };
+  herdr = pkgs.callPackage ../pkgs/herdr.nix { inherit shared; };
   hxOpenTab = pkgs.writeShellScriptBin "hx-open-tab" ''
     file=$(/bin/wslpath -u "$1")
     dir=$(${pkgs.coreutils}/bin/dirname "$file")

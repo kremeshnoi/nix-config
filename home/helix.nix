@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, shared, ... }:
 
 let
   phpantom = pkgs.callPackage ../pkgs/phpantom.nix { };
@@ -36,5 +36,5 @@ in
     package = helix;
   };
 
-  xdg.configFile."helix".source = ../../shared/helix;
+  xdg.configFile."helix".source = "${shared}/helix";
 }

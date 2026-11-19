@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, shared, ... }:
 
 let
   herdr = "/run/current-system/sw/bin/herdr";
 
   plugins = [
-    { id = "kremeshnoi.workspace-tabs"; root = "${../../shared/herdr/workspace-tabs}"; }
-    { id = "kremeshnoi.space-colors"; root = "${../../shared/herdr/space-colors}"; }
+    { id = "kremeshnoi.workspace-tabs"; root = "${shared}/herdr/workspace-tabs"; }
+    { id = "kremeshnoi.space-colors"; root = "${shared}/herdr/space-colors"; }
   ];
 
   registerPlugin = plugin: ''
@@ -24,9 +24,9 @@ in
   };
 
   config.xdg.configFile."herdr/config.toml".text = lib.concatMapStringsSep "\n" builtins.readFile [
-    ../../shared/herdr/base.toml
+    "${shared}/herdr/base.toml"
     config.dotfiles.herdrKeys
-    ../../shared/herdr/space-colors/sidebar.toml
+    "${shared}/herdr/space-colors/sidebar.toml"
   ];
 
   config.home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
