@@ -1,4 +1,4 @@
-# nix-config
+# Nix Config
 
 NixOS under WSL and a Mac with nix-darwin, built from one flake with one home-manager setup. It lives as the `nix/` submodule of [dotfiles](https://github.com/kremeshnoi/dotfiles) and takes the OS-independent configs from that repo's `shared/` through the `dotfiles` flake input.
 
